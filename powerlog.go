@@ -20,6 +20,8 @@ var dataPerangkat []Perangkat
 
 // FUNCTION HELPER (UNTUK EFISIENSI LOGIC PROGRAM)
 
+// bikin fungsi untuk cek duplikat perangkat
+
 func hitungKonsumsi(perangkat Perangkat) float64 {
 	// Konversi Watt -> kWh
 	return (perangkat.dayaW * perangkat.waktu) / 1000
@@ -152,9 +154,9 @@ func listMainMenu() {
 
 func MenuKelolaPerangkat() {
 	fmt.Println("=============== KELOLA PERANGKAT ================")
-	fmt.Println("1. Tambahkan Perangkat")
+	fmt.Println("1. Tambahkan Perangkat") // kurang cek valid
 	fmt.Println("2. Tampilkan Perangkat")
-	fmt.Println("3. Ubah Detail Perangkat")
+	fmt.Println("3. Ubah Detail Perangkat") // blum
 	fmt.Println("4. Hapus Perangkat")
 	fmt.Println("0. Kembali")
 	fmt.Println("=================================================")
@@ -172,7 +174,7 @@ func MenuStatistikPerangkat() {
 	fmt.Println("=============== STATISTIK PERANGKAT ================")
 	fmt.Println("1. Total Konsumsi Energi Harian")
 	fmt.Println("2. Daftar Perangkat Konsumsi Tertinggi")
-	fmt.Println("3. Perangkat Paling Boros Listrik")
+	fmt.Println("3. Perangkat Paling Boros Listrik") // yg paling tinggi
 	fmt.Println("0. Kembali")
 	fmt.Println("====================================================")
 }
@@ -244,7 +246,7 @@ func pilihKelolaPerangkat() {
 			return
 		default:
 			fmt.Print("Tolong masukkan input berupa angka 0 - 4!")
-			pause()
+			pause() 
 		}
 	}
 }
@@ -366,9 +368,9 @@ func tambahPerangkat() {
 
 	// Belum ada cek error input
 	fmt.Print("Masukkan Nama Perangkat:")
-	fmt.Scanln(&tambah.namaPerangkat)
+	fmt.Scanln(&tambah.namaPerangkat) // gapapa kalo isi nomor (skenario: Ac-01)
 	fmt.Print("Masukkan Nama Ruangan: ")
-	fmt.Scanln(&tambah.ruangan)
+	fmt.Scanln(&tambah.ruangan) // gapapa kalo isi nomor (skenario: Kamar-01)
 	fmt.Print("Masukkan Daya Perangkat (watt): ")
 	fmt.Scanln(&tambah.dayaW)
 

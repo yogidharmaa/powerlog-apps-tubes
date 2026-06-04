@@ -83,7 +83,9 @@ func pause() {
 
 func cekAdaPerangkat() bool {
 	if len(dataPerangkat) == 0 {
-		fmt.Println("Belum ada data perangkat, silahkan tambahkan perangkat terlebih dahulu di menu Kelola Perangkat - Tambahkan Perangkat")
+		fmt.Print("Belum ada data perangkat\n")
+		fmt.Print("silahkan tambahkan perangkat terlebih dahulu di\n")
+		fmt.Print("menu: Kelola Perangkat -> Tambahkan Perangkat")
 		pause()
 		return true
 	}

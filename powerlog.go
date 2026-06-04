@@ -26,14 +26,15 @@ func validasi() bool{ // Penyempurnaan lagi (baru dipasang ditambahkan perangkat
 	for {
 		clearScreen()
 
-		fmt.Print("Apakah anda yakin? [Y/N]\n")
+		fmt.Print("Apakah anda yakin? [Y/N]: ")
 		fmt.Scanln(&confirm)
-		if confirm == "N" || confirm == "n" {
-			return false
-		} else if confirm == "Y" || confirm == "y" {
+		if confirm == "Y" || confirm == "y" {
 			return true
+		} else if confirm == "N" || confirm == "n" {
+			return false
 		} else {
-			fmt.Print("input tidak valid")
+			clearScreen()
+			fmt.Print("Input tidak valid, masukkan antara [Y/y or N/n]!")
 			pause()
 		}
 	}

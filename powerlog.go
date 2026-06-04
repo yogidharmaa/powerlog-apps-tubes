@@ -20,7 +20,7 @@ var dataPerangkat []Perangkat
 
 // FUNCTION HELPER (UNTUK EFISIENSI LOGIC PROGRAM)
 
-func validasi() bool{ // Penyempurnaan lagi (baru dipasang ditambahkan perangkat)
+func validasi() bool { // Penyempurnaan lagi (baru dipasang ditambahkan perangkat)
 	var confirm string
 
 	for {
@@ -53,20 +53,20 @@ func tampilkanPerangkat() {
 	fmt.Println("========== DATA PERANGKAT ==========")
 
 	for i := 0; i < len(dataPerangkat); i++ {
-	fmt.Println("Data ke-", i+1)
-	fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
-	fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
-	fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
-	fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
-	fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[i]), "kWh")
-	fmt.Println("------------------------------------")
+		fmt.Println("Data ke-", i+1)
+		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
+		fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
+		fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
+		fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
+		fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[i]), "kWh")
+		fmt.Println("------------------------------------")
 	}
 }
 
 func clearScreen() {
 	var cmd *exec.Cmd
 
-	if runtime.GOOS == "windows" { // windows 
+	if runtime.GOOS == "windows" { // windows
 		cmd = exec.Command("cmd", "/c", "cls")
 	} else { // mac
 		cmd = exec.Command("clear")
@@ -91,7 +91,6 @@ func cekAdaPerangkat() bool {
 	return false
 }
 
-
 // DATA DUMMY UNTUK UJI COBA
 func DataDummy() {
 	dataPerangkat = []Perangkat{
@@ -103,27 +102,33 @@ func DataDummy() {
 		},
 		{
 			namaPerangkat: "Televisi",
-			ruangan:       "Ruang Tamu",
+			ruangan:       "Ruang_Tamu",
 			dayaW:         100,
 			waktu:         5,
 		},
 		{
 			namaPerangkat: "AC",
-			ruangan:       "Kamar Tidur",
+			ruangan:       "Kamar_Tidur",
 			dayaW:         750,
 			waktu:         8,
 		},
 		{
 			namaPerangkat: "Laptop",
-			ruangan:       "Ruang Kerja",
+			ruangan:       "Ruang_Kerja",
 			dayaW:         65,
 			waktu:         6,
 		},
 		{
 			namaPerangkat: "Dongle",
-			ruangan:       "Ruang Kerja",
+			ruangan:       "Ruang_Kerja",
 			dayaW:         12,
 			waktu:         2,
+		},
+		{
+			namaPerangkat: "proyektor",
+			ruangan:       "Ruang_Kerja",
+			dayaW:         25,
+			waktu:         5,
 		},
 	}
 }
@@ -132,11 +137,11 @@ func selectionSortPerangkat() {
 	n := len(dataPerangkat)
 
 	for i := 0; i < n-1; i++ {
-		maxIdx := i 
+		maxIdx := i
 
 		for j := i + 1; j < n; j++ {
 			if dataPerangkat[j].dayaW > dataPerangkat[maxIdx].dayaW {
-				maxIdx = j 
+				maxIdx = j
 			}
 		}
 
@@ -144,11 +149,11 @@ func selectionSortPerangkat() {
 	}
 }
 
-func insertionSortPerangkat() {   
+func insertionSortPerangkat() {
 	n := len(dataPerangkat)
-	
+
 	for i := 1; i < n; i++ {
-		key := dataPerangkat[i] 
+		key := dataPerangkat[i]
 		j := i - 1
 
 		for j >= 0 && dataPerangkat[j].namaPerangkat > key.namaPerangkat {
@@ -158,6 +163,7 @@ func insertionSortPerangkat() {
 		dataPerangkat[j+1] = key
 	}
 }
+
 // FUNCTION DISPLAY MENU
 
 func listMainMenu() {
@@ -214,7 +220,7 @@ func inputMainMenu() {
 		clearScreen()
 		listMainMenu()
 
-        pilih = ""
+		pilih = ""
 		fmt.Print("Silahkan pilih menu (0 - 3): ")
 		fmt.Scanln(&pilih)
 
@@ -247,9 +253,9 @@ func pilihKelolaPerangkat() {
 		clearScreen()
 		MenuKelolaPerangkat()
 
-        pilih = ""
+		pilih = ""
 		fmt.Print("Silahkan pilih menu (0 - 4): ")
-		fmt.Scanln(&pilih) 
+		fmt.Scanln(&pilih)
 
 		switch pilih {
 		case "1":
@@ -264,7 +270,7 @@ func pilihKelolaPerangkat() {
 			return
 		default:
 			fmt.Print("Tolong masukkan input berupa angka 0 - 4!")
-			pause() 
+			pause()
 		}
 	}
 }
@@ -272,17 +278,17 @@ func pilihKelolaPerangkat() {
 func pilihUrutkanPerangkat() {
 	var pilih string
 
-    clearScreen()
+	clearScreen()
 
-    if cekAdaPerangkat() {
-        return
-    }
+	if cekAdaPerangkat() {
+		return
+	}
 
 	for {
 		clearScreen()
 		menuUrutkanPerangkat()
 
-        pilih = ""
+		pilih = ""
 		fmt.Print("Silahkan pilih menu (0 - 2): ")
 		fmt.Scanln(&pilih)
 
@@ -290,21 +296,21 @@ func pilihUrutkanPerangkat() {
 		case "1":
 			clearScreen()
 
-            selectionSortPerangkat()
-            tampilkanPerangkat()
+			selectionSortPerangkat()
+			tampilkanPerangkat()
 
-            fmt.Print("===== DAFTAR PERANGKAT KONSUMSI DAYA TERTINGGI =====")
+			fmt.Print("===== DAFTAR PERANGKAT KONSUMSI DAYA TERTINGGI =====")
 
-            pause()
+			pause()
 		case "2":
 			clearScreen()
 
-            insertionSortPerangkat()
-            tampilkanPerangkat()
+			insertionSortPerangkat()
+			tampilkanPerangkat()
 
-            fmt.Print("===== DAFTAR PERANGKAT BERDASARKAN ABDJA =====")
+			fmt.Print("===== DAFTAR PERANGKAT BERDASARKAN ABDJA =====")
 
-            pause()
+			pause()
 		case "0":
 			return
 		default:
@@ -392,7 +398,7 @@ func tambahPerangkat() {
 
 	// Validasi duplikat perangkat
 
-	for i:= 0; i < len(dataPerangkat); i++ {
+	for i := 0; i < len(dataPerangkat); i++ {
 
 		if tambah.namaPerangkat == dataPerangkat[i].namaPerangkat {
 			if tambah.ruangan == dataPerangkat[i].ruangan {
@@ -426,21 +432,20 @@ func tambahPerangkat() {
 		fmt.Print("Input dibatalkan")
 		pause()
 		return
-	} 
+	}
 
 	// Output
 	clearScreen()
 	dataPerangkat = append(dataPerangkat, tambah)
 
 	fmt.Print("===== INPUT TELAH DITAMBAHKAN =====\n")
-	fmt.Println("Nama Perangkat: ",tambah.namaPerangkat)
-	fmt.Println("Ruangan: ",tambah.ruangan)
-	fmt.Println("Daya (watt): ",tambah.dayaW)
-	fmt.Println("Waktu (jam): ",tambah.waktu)
+	fmt.Println("Nama Perangkat: ", tambah.namaPerangkat)
+	fmt.Println("Ruangan: ", tambah.ruangan)
+	fmt.Println("Daya (watt): ", tambah.dayaW)
+	fmt.Println("Waktu (jam): ", tambah.waktu)
 
 	pause()
 }
-
 
 func hapusPerangkat() {
 
@@ -449,27 +454,27 @@ func hapusPerangkat() {
 
 	if cekAdaPerangkat() {
 		return
-	} 
-    
-    tampilkanPerangkat()
+	}
 
-    fmt.Println("===== HAPUS PERANGKAT =====")
-    fmt.Print("Pilih data ke- berapa yang ingin dihapus: ")
-    fmt.Println("\nTekan Enter untuk batal")
-    _,err := fmt.Scanln(&pilihHapus)
-    
+	tampilkanPerangkat()
+
+	fmt.Println("===== HAPUS PERANGKAT =====")
+	fmt.Print("Pilih data ke- berapa yang ingin dihapus: ")
+	fmt.Println("\nTekan Enter untuk batal")
+	_, err := fmt.Scanln(&pilihHapus)
+
 	if err != nil {
 		clearScreen()
-        fmt.Println("❌ Error: Input tidak boleh kosong dan harus berupa angka!")
-        
-        var sampah string
-        fmt.Scanln(&sampah)
-        
-        pause()
-        return 
-    }
+		fmt.Println("❌ Error: Input tidak boleh kosong dan harus berupa angka!")
 
-    idx := pilihHapus - 1
+		var sampah string
+		fmt.Scanln(&sampah)
+
+		pause()
+		return
+	}
+
+	idx := pilihHapus - 1
 
 	if idx < 0 || idx >= len(dataPerangkat) {
 		fmt.Println("Perangkat tidak ditemukan!")
@@ -479,7 +484,7 @@ func hapusPerangkat() {
 
 	dataPerangkat = append(dataPerangkat[:idx], dataPerangkat[idx+1:]...)
 
-    clearScreen()
+	clearScreen()
 	fmt.Println("\nData perangkat berhasil dihapus!")
 	pause()
 }

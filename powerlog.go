@@ -20,7 +20,24 @@ var dataPerangkat []Perangkat
 
 // FUNCTION HELPER (UNTUK EFISIENSI LOGIC PROGRAM)
 
-// bikin fungsi untuk cek duplikat perangkat
+func validasi() bool{ // Penyempurnaan lagi (baru dipasang ditambahkan perangkat)
+	var confirm string
+
+	for {
+		clearScreen()
+
+		fmt.Print("Apakah anda yakin? [Y/N]\n")
+		fmt.Scanln(&confirm)
+		if confirm == "N" || confirm == "n" {
+			return false
+		} else if confirm == "Y" || confirm == "y" {
+			return true
+		} else {
+			fmt.Print("input tidak valid")
+			pause()
+		}
+	}
+}
 
 func hitungKonsumsi(perangkat Perangkat) float64 {
 	// Konversi Watt -> kWh
@@ -372,6 +389,8 @@ func tambahPerangkat() {
 	fmt.Print("Masukkan Nama Ruangan: ")
 	fmt.Scanln(&tambah.ruangan) // gapapa kalo isi nomor (skenario: Kamar-01)
 
+	// Validasi duplikat perangkat
+
 	for i:= 0; i < len(dataPerangkat); i++ {
 
 		if tambah.namaPerangkat == dataPerangkat[i].namaPerangkat {
@@ -401,15 +420,23 @@ func tambahPerangkat() {
 		return
 	}
 
+	if !validasi() {
+		clearScreen()
+		fmt.Print("Input dibatalkan")
+		pause()
+		return
+	} 
+
 	// Output
 	clearScreen()
+	dataPerangkat = append(dataPerangkat, tambah)
+
 	fmt.Print("===== INPUT TELAH DITAMBAHKAN =====\n")
 	fmt.Println("Nama Perangkat: ",tambah.namaPerangkat)
 	fmt.Println("Ruangan: ",tambah.ruangan)
 	fmt.Println("Daya (watt): ",tambah.dayaW)
 	fmt.Println("Waktu (jam): ",tambah.waktu)
 
-	dataPerangkat = append(dataPerangkat, tambah)
 	pause()
 }
 

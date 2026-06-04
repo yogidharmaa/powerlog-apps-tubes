@@ -371,6 +371,18 @@ func tambahPerangkat() {
 	fmt.Scanln(&tambah.namaPerangkat) // gapapa kalo isi nomor (skenario: Ac-01)
 	fmt.Print("Masukkan Nama Ruangan: ")
 	fmt.Scanln(&tambah.ruangan) // gapapa kalo isi nomor (skenario: Kamar-01)
+
+	for i:= 0; i < len(dataPerangkat); i++ {
+
+		if tambah.namaPerangkat == dataPerangkat[i].namaPerangkat {
+			if tambah.ruangan == dataPerangkat[i].ruangan {
+				fmt.Print("Nama perangkat ada diruangan yang sama")
+				pause()
+				return
+			}
+		}
+	}
+
 	fmt.Print("Masukkan Daya Perangkat (watt): ")
 	fmt.Scanln(&tambah.dayaW)
 

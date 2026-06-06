@@ -537,17 +537,12 @@ func hapusPerangkat() {
 	tampilkanPerangkat()
 
 	fmt.Println("===== HAPUS PERANGKAT =====")
-	fmt.Print("Pilih data ke- berapa yang ingin dihapus: ")
-	fmt.Println("\nTekan Enter untuk batal")
+	fmt.Print("Pilih data ke- berapa yang ingin dihapus : ")
+
 	_, err := fmt.Scanln(&pilihHapus)
 
 	if err != nil {
-		clearScreen()
-		fmt.Println("❌ Error: Input tidak boleh kosong dan harus berupa angka!")
-
-		var sampah string
-		fmt.Scanln(&sampah)
-
+		fmt.Println("Masukkan nomor yang valid!")
 		pause()
 		return
 	}
@@ -555,7 +550,13 @@ func hapusPerangkat() {
 	idx := pilihHapus - 1
 
 	if idx < 0 || idx >= len(dataPerangkat) {
-		fmt.Println("Perangkat tidak ditemukan!")
+		fmt.Println("Data yang anda pilih tidak tersedia!")
+		pause()
+		return
+	}
+
+	if !validasi() {
+		fmt.Println("Penghapusan dibatalkan")
 		pause()
 		return
 	}

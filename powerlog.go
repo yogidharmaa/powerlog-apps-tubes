@@ -165,6 +165,107 @@ func insertionSortPerangkat() {
 		dataPerangkat[j+1] = key
 	}
 }
+func sortRuangan() {
+	n := len(dataPerangkat)
+
+	for i := 0; i < n-1; i++ {
+		minIdx := i
+
+		for j := i + 1; j < n; j++ {
+			if dataPerangkat[j].ruangan < dataPerangkat[minIdx].ruangan {
+				minIdx = j
+			}
+		}
+
+		dataPerangkat[i], dataPerangkat[minIdx] = dataPerangkat[minIdx], dataPerangkat[i]
+	}
+}
+
+func cariNamaPerangkat() {
+
+	var cariberdnama string
+	var ketemu bool
+
+	clearScreen()
+
+	fmt.Print("Masukkan nama perangkat yang dicari : ")
+	fmt.Scanln(&cariberdnama)
+
+	fmt.Println("\n===== HASIL PENCARIAN =====")
+
+	for i := 0; i < len(dataPerangkat); i++ {
+
+		if dataPerangkat[i].namaPerangkat == cariberdnama {
+
+			fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
+			fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
+			fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
+			fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
+			fmt.Println("------------------------------------")
+
+			ketemu = true
+		}
+	}
+
+	if !ketemu {
+		fmt.Println("Perangkat tidak ditemukan!")
+	}
+
+	pause()
+}
+
+func cariRuangan() {
+
+	var cariberdruangan string
+
+	clearScreen()
+
+	fmt.Print("Masukkan nama ruangan yang dicari : ")
+	fmt.Scanln(&cariberdruangan)
+
+	sortRuangan()
+
+kiri := 0
+kanan := len(dataPerangkat) - 1
+ketemu := -1
+
+for kiri <= kanan {
+
+	tengah := (kiri + kanan) / 2
+
+	if dataPerangkat[tengah].ruangan == cariberdruangan {
+		ketemu = tengah
+		break
+	} else if dataPerangkat[tengah].ruangan < cariberdruangan {
+		kiri = tengah + 1
+	} else {
+		kanan = tengah - 1
+	}
+}
+
+if ketemu == -1 {
+	fmt.Println("\nRuangan tidak ditemukan!")
+	pause()
+	return
+}
+
+fmt.Println("\n===== HASIL PENCARIAN =====")
+
+for i := 0; i < len(dataPerangkat); i++ {
+
+	if dataPerangkat[i].ruangan == cariberdruangan {
+
+		fmt.Println("------------------------------------")
+		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
+		fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
+		fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
+		fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
+	}
+}
+
+pause()
+
+}
 
 // FUNCTION DISPLAY MENU
 
@@ -334,14 +435,16 @@ func pilihCariPerangkat() {
 		clearScreen()
 		MenuCariPerangkat()
 
+		pilih = ""
+
 		fmt.Print("Silahkan pilih menu (0 - 2): ")
 		fmt.Scanln(&pilih)
 
 		switch pilih {
 		case "1":
-			//
+			cariRuangan()
 		case "2":
-			//
+			cariNamaPerangkat()
 		case "0":
 			return
 		default:

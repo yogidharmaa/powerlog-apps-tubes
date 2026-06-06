@@ -265,7 +265,7 @@ func pilihKelolaPerangkat() {
 		case "2":
 			pilihUrutkanPerangkat()
 		case "3":
-			//
+			ubahPerangkat()
 		case "4":
 			hapusPerangkat()
 		case "0":
@@ -310,7 +310,7 @@ func pilihUrutkanPerangkat() {
 			insertionSortPerangkat()
 			tampilkanPerangkat()
 
-			fmt.Print("===== DAFTAR PERANGKAT BERDASARKAN ABDJA =====")
+			fmt.Print("===== DAFTAR PERANGKAT BERDASARKAN ABJAD =====")
 
 			pause()
 		case "0":
@@ -446,6 +446,82 @@ func tambahPerangkat() {
 	fmt.Println("Daya (watt): ", tambah.dayaW)
 	fmt.Println("Waktu (jam): ", tambah.waktu)
 
+	pause()
+}
+
+func ubahPerangkat() {
+
+	var pilihUbah int
+	var namaBaru string
+	var ruanganBaru string
+	var dayaBaru float64
+	var waktuBaru float64
+
+	clearScreen()
+
+	if cekAdaPerangkat() {
+		return
+	}
+
+	tampilkanPerangkat()
+
+	fmt.Println("===== UBAH DETAIL PERANGKAT =====")
+	fmt.Print("Pilih data ke- berapa yang ingin diubah: ")
+
+	_, err := fmt.Scanln(&pilihUbah)
+
+	if err != nil {
+		fmt.Println("Input harus berupa angka!")
+		pause()
+		return
+	}
+
+	idx := pilihUbah - 1
+
+	if idx < 0 || idx >= len(dataPerangkat) {
+		fmt.Println("Data tidak ditemukan!")
+		pause()
+		return
+	}
+
+	fmt.Println("\n===== DATA BARU =====")
+
+	fmt.Print("Nama Perangkat : ")
+	fmt.Scanln(&namaBaru)
+
+	fmt.Print("Ruangan : ")
+	fmt.Scanln(&ruanganBaru)
+
+	fmt.Print("Daya (Watt) : ")
+	fmt.Scanln(&dayaBaru)
+
+	if dayaBaru <= 0 {
+		fmt.Println("Daya harus lebih dari 0")
+		pause()
+		return
+	}
+
+	fmt.Print("Lama Pemakaian (Jam) : ")
+	fmt.Scanln(&waktuBaru)
+
+	if waktuBaru <= 0 {
+		fmt.Println("Waktu harus lebih dari 0")
+		pause()
+		return
+	}
+
+	if !validasi() {
+		fmt.Println("Perubahan dibatalkan")
+		pause()
+		return
+	}
+
+	dataPerangkat[idx].namaPerangkat = namaBaru
+	dataPerangkat[idx].ruangan = ruanganBaru
+	dataPerangkat[idx].dayaW = dayaBaru
+	dataPerangkat[idx].waktu = waktuBaru
+
+	fmt.Println("\nData berhasil diubah!")
 	pause()
 }
 

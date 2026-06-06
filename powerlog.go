@@ -127,7 +127,7 @@ func DataDummy() {
 			waktu:         2,
 		},
 		{
-			namaPerangkat: "proyektor",
+			namaPerangkat: "Proyektor",
 			ruangan:       "Ruang_Kerja",
 			dayaW:         25,
 			waktu:         5,
@@ -225,46 +225,130 @@ func cariRuangan() {
 
 	sortRuangan()
 
-kiri := 0
-kanan := len(dataPerangkat) - 1
-ketemu := -1
+	kiri := 0
+	kanan := len(dataPerangkat) - 1
+	ketemu := -1
 
-for kiri <= kanan {
+	for kiri <= kanan {
 
-	tengah := (kiri + kanan) / 2
+		tengah := (kiri + kanan) / 2
 
-	if dataPerangkat[tengah].ruangan == cariberdruangan {
-		ketemu = tengah
-		break
-	} else if dataPerangkat[tengah].ruangan < cariberdruangan {
-		kiri = tengah + 1
-	} else {
-		kanan = tengah - 1
+		if dataPerangkat[tengah].ruangan == cariberdruangan {
+			ketemu = tengah
+			break
+		} else if dataPerangkat[tengah].ruangan < cariberdruangan {
+			kiri = tengah + 1
+		} else {
+			kanan = tengah - 1
+		}
 	}
-}
 
-if ketemu == -1 {
-	fmt.Println("\nRuangan tidak ditemukan!")
+	if ketemu == -1 {
+		fmt.Println("\nRuangan tidak ditemukan!")
+		pause()
+		return
+	}
+
+	fmt.Println("\n===== HASIL PENCARIAN =====")
+
+	for i := 0; i < len(dataPerangkat); i++ {
+
+		if dataPerangkat[i].ruangan == cariberdruangan {
+
+			fmt.Println("------------------------------------")
+			fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
+			fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
+			fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
+			fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
+		}
+	}
+
 	pause()
-	return
+
 }
+func totalKonsumsiHarian() {
 
-fmt.Println("\n===== HASIL PENCARIAN =====")
+	clearScreen()
 
-for i := 0; i < len(dataPerangkat); i++ {
+	var total float64
 
-	if dataPerangkat[i].ruangan == cariberdruangan {
+	fmt.Println("===== TOTAL KONSUMSI ENERGI HARIAN =====")
+
+	for i := 0; i < len(dataPerangkat); i++ {
+
+		konsumsi := hitungKonsumsi(dataPerangkat[i])
 
 		fmt.Println("------------------------------------")
 		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
 		fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
-		fmt.Println("Daya (Watt)    :", dataPerangkat[i].dayaW)
-		fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
+		fmt.Println("Konsumsi       :", konsumsi, "kWh")
+
+		total += konsumsi
+	}
+
+	fmt.Println("------------------------------------")
+	fmt.Println("TOTAL KONSUMSI HARIAN :", total, "kWh")
+
+	pause()
+}
+
+func sortKonsumsiTertinggi() {
+
+	n := len(dataPerangkat)
+
+	for i := 0; i < n-1; i++ {
+
+		maxIdx := i
+
+		for j := i + 1; j < n; j++ {
+
+			if hitungKonsumsi(dataPerangkat[j]) > hitungKonsumsi(dataPerangkat[maxIdx]) {
+				maxIdx = j
+			}
+		}
+
+		dataPerangkat[i], dataPerangkat[maxIdx] = dataPerangkat[maxIdx], dataPerangkat[i]
 	}
 }
 
-pause()
+func daftarKonsumsiTertinggi() {
 
+	clearScreen()
+
+	sortKonsumsiTertinggi()
+
+	fmt.Println("===== DAFTAR PERANGKAT KONSUMSI TERTINGGI =====")
+
+	for i := 0; i < len(dataPerangkat); i++ {
+
+		fmt.Println("------------------------------------")
+		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
+		fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[i]), "kWh")
+	}
+
+	pause()
+}
+
+func perangkatPalingBoros() {
+
+	clearScreen()
+
+	maxIdx := 0
+
+	for i := 1; i < len(dataPerangkat); i++ {
+
+		if hitungKonsumsi(dataPerangkat[i]) > hitungKonsumsi(dataPerangkat[maxIdx]) {
+			maxIdx = i
+		}
+	}
+
+	fmt.Println("===== PERANGKAT PALING BOROS LISTRIK =====")
+
+	fmt.Println("Nama Perangkat :", dataPerangkat[maxIdx].namaPerangkat)
+	fmt.Println("Ruangan        :", dataPerangkat[maxIdx].ruangan)
+	fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[maxIdx]), "kWh")
+
+	pause()
 }
 
 // FUNCTION DISPLAY MENU
@@ -466,16 +550,18 @@ func pilihStatistikPerangkat() {
 		clearScreen()
 		MenuStatistikPerangkat()
 
+		pilih = ""
+
 		fmt.Print("Silahkan pilih menu (0 - 3): ")
 		fmt.Scanln(&pilih)
 
 		switch pilih {
 		case "1":
-			//
+			totalKonsumsiHarian()
 		case "2":
-			//
+			daftarKonsumsiTertinggi()
 		case "3":
-			//
+			perangkatPalingBoros()
 		case "0":
 			return
 		default:

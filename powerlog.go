@@ -20,12 +20,10 @@ var dataPerangkat []Perangkat
 
 // FUNCTION HELPER (UNTUK EFISIENSI LOGIC PROGRAM)
 
-func validasi() bool { // Penyempurnaan lagi (baru dipasang ditambahkan perangkat)
+func validasi() bool { 
 	var confirm string
 
 	for {
-		clearScreen()
-
 		fmt.Print("Apakah anda yakin? [Y/N]: ")
 		fmt.Scanln(&confirm)
 		if confirm == "Y" || confirm == "y" {
@@ -33,15 +31,13 @@ func validasi() bool { // Penyempurnaan lagi (baru dipasang ditambahkan perangka
 		} else if confirm == "N" || confirm == "n" {
 			return false
 		} else {
-			clearScreen()
-			fmt.Print("Input tidak valid, masukkan antara [Y/y or N/n]!")
-			pause()
+			fmt.Println("Input tidak valid, masukkan antara [Y/y or N/n]!")
 		}
 	}
 }
 
+// Konversi Watt -> kWh
 func hitungKonsumsi(perangkat Perangkat) float64 {
-	// Konversi Watt -> kWh
 	return (perangkat.dayaW * perangkat.waktu) / 1000
 }
 
@@ -77,15 +73,15 @@ func clearScreen() {
 }
 
 func pause() {
-	fmt.Print("\nTekan [Enter] untuk lanjut...")
+	fmt.Print("\nTekan Enter untuk lanjut...")
 	fmt.Scanln()
 }
 
 func cekAdaPerangkat() bool {
 	if len(dataPerangkat) == 0 {
 		fmt.Print("Belum ada data perangkat\n")
-		fmt.Print("silahkan tambahkan perangkat terlebih dahulu di\n")
-		fmt.Print("menu: Kelola Perangkat -> Tambahkan Perangkat")
+		fmt.Print("Silahkan tambahkan perangkat terlebih dahulu di\n")
+		fmt.Print("Menu: Kelola Perangkat -> Tambahkan Perangkat")
 		pause()
 		return true
 	}
@@ -135,6 +131,7 @@ func DataDummy() {
 	}
 }
 
+// SORTING FUNCTION
 func selectionSortPerangkat() {
 	n := len(dataPerangkat)
 
@@ -165,6 +162,7 @@ func insertionSortPerangkat() {
 		dataPerangkat[j+1] = key
 	}
 }
+
 func sortRuangan() {
 	n := len(dataPerangkat)
 
@@ -193,8 +191,10 @@ func cariNamaPerangkat() {
 
 	fmt.Println("\n===== HASIL PENCARIAN =====")
 
+	// Proses Looping buat nyari perangkat sesuai inputan "cariberdnama"
 	for i := 0; i < len(dataPerangkat); i++ {
 
+		// Membandingkan namaPerangkat di slice dengan inputan user
 		if dataPerangkat[i].namaPerangkat == cariberdnama {
 
 			fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
@@ -203,10 +203,11 @@ func cariNamaPerangkat() {
 			fmt.Println("Durasi (Jam)   :", dataPerangkat[i].waktu)
 			fmt.Println("------------------------------------")
 
-			ketemu = true
+			ketemu = true // Memberikan indikator karena data sudah ketemu
 		}
 	}
 
+	// Kondisi bool default = false
 	if !ketemu {
 		fmt.Println("Perangkat tidak ditemukan!")
 	}
@@ -225,6 +226,7 @@ func cariRuangan() {
 
 	sortRuangan()
 
+	// Start batas kiri sama batas kanan 
 	kiri := 0
 	kanan := len(dataPerangkat) - 1
 	ketemu := -1
@@ -266,28 +268,26 @@ func cariRuangan() {
 	pause()
 
 }
+
 func totalKonsumsiHarian() {
 
 	clearScreen()
 
 	var total float64
+	var banyakPerangkat int
 
 	fmt.Println("===== TOTAL KONSUMSI ENERGI HARIAN =====")
 
 	for i := 0; i < len(dataPerangkat); i++ {
 
+		// Manggil fungsi konversi ke kWh dengan data perangkat
 		konsumsi := hitungKonsumsi(dataPerangkat[i])
-
-		fmt.Println("------------------------------------")
-		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
-		fmt.Println("Ruangan        :", dataPerangkat[i].ruangan)
-		fmt.Println("Konsumsi       :", konsumsi, "kWh")
-
 		total += konsumsi
+		banyakPerangkat++
 	}
 
-	fmt.Println("------------------------------------")
-	fmt.Println("TOTAL KONSUMSI HARIAN :", total, "kWh")
+	fmt.Println("Total Perangkat:", banyakPerangkat, "Perangkat")
+	fmt.Println("Total Konsumsi Harian:", total, "kWh")
 
 	pause()
 }
@@ -365,9 +365,9 @@ func listMainMenu() {
 
 func MenuKelolaPerangkat() {
 	fmt.Println("=============== KELOLA PERANGKAT ================")
-	fmt.Println("1. Tambahkan Perangkat") // kurang cek valid
+	fmt.Println("1. Tambahkan Perangkat") 
 	fmt.Println("2. Tampilkan Perangkat")
-	fmt.Println("3. Ubah Detail Perangkat") // blum
+	fmt.Println("3. Ubah Detail Perangkat") 
 	fmt.Println("4. Hapus Perangkat")
 	fmt.Println("0. Kembali")
 	fmt.Println("=================================================")
@@ -385,7 +385,7 @@ func MenuStatistikPerangkat() {
 	fmt.Println("=============== STATISTIK PERANGKAT ================")
 	fmt.Println("1. Total Konsumsi Energi Harian")
 	fmt.Println("2. Daftar Perangkat Konsumsi Tertinggi")
-	fmt.Println("3. Perangkat Paling Boros Listrik") // yg paling tinggi
+	fmt.Println("3. Perangkat Paling Boros Listrik") 
 	fmt.Println("0. Kembali")
 	fmt.Println("====================================================")
 }
@@ -572,8 +572,6 @@ func pilihStatistikPerangkat() {
 }
 
 // CRUD FEATURE
-
-// ON PROGGRESS
 func tambahPerangkat() {
 
 	var tambah Perangkat
@@ -581,19 +579,17 @@ func tambahPerangkat() {
 
 	fmt.Print("===== TAMBAH PERANGKAT =====\n")
 
-	// Belum ada cek error input
 	fmt.Print("Masukkan Nama Perangkat:")
-	fmt.Scanln(&tambah.namaPerangkat) // gapapa kalo isi nomor (skenario: Ac-01)
+	fmt.Scanln(&tambah.namaPerangkat) 
 	fmt.Print("Masukkan Nama Ruangan: ")
-	fmt.Scanln(&tambah.ruangan) // gapapa kalo isi nomor (skenario: Kamar-01)
+	fmt.Scanln(&tambah.ruangan) 
 
 	// Validasi duplikat perangkat
-
 	for i := 0; i < len(dataPerangkat); i++ {
 
 		if tambah.namaPerangkat == dataPerangkat[i].namaPerangkat {
 			if tambah.ruangan == dataPerangkat[i].ruangan {
-				fmt.Print("Nama perangkat ada diruangan yang sama")
+				fmt.Print("Nama perangkat sudah ada diruangan yang sama")
 				pause()
 				return
 			}
@@ -630,10 +626,11 @@ func tambahPerangkat() {
 	dataPerangkat = append(dataPerangkat, tambah)
 
 	fmt.Print("===== INPUT TELAH DITAMBAHKAN =====\n")
-	fmt.Println("Nama Perangkat: ", tambah.namaPerangkat)
-	fmt.Println("Ruangan: ", tambah.ruangan)
-	fmt.Println("Daya (watt): ", tambah.dayaW)
-	fmt.Println("Waktu (jam): ", tambah.waktu)
+	fmt.Print("===== DETAIL INPUT =====\n")
+	fmt.Println("Nama Perangkat : ", tambah.namaPerangkat)
+	fmt.Println("Ruangan		: ", tambah.ruangan)
+	fmt.Println("Daya (watt)	: ", tambah.dayaW)
+	fmt.Println("Waktu (jam)	: ", tambah.waktu)
 
 	pause()
 }
@@ -641,10 +638,8 @@ func tambahPerangkat() {
 func ubahPerangkat() {
 
 	var pilihUbah int
-	var namaBaru string
-	var ruanganBaru string
-	var dayaBaru float64
-	var waktuBaru float64
+	var namaBaru, ruanganBaru string
+	var dayaBaru, waktuBaru float64
 
 	clearScreen()
 
@@ -739,7 +734,7 @@ func hapusPerangkat() {
 	idx := pilihHapus - 1
 
 	if idx < 0 || idx >= len(dataPerangkat) {
-		fmt.Println("Data yang anda pilih tidak tersedia!")
+		fmt.Println("Data tidak ditemukan!")
 		pause()
 		return
 	}

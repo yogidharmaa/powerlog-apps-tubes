@@ -722,6 +722,18 @@ func ubahPerangkat() {
 		return
 	}
 
+	// Cek duplikat data 
+	for i := 0; i < len(dataPerangkat); i++ {
+
+		if namaBaru == dataPerangkat[i].namaPerangkat {
+			if ruanganBaru == dataPerangkat[i].ruangan {
+				fmt.Print("Nama perangkat sudah ada diruangan yang sama")
+				pause()
+				return
+			}
+		}
+	}
+
 	fmt.Print("Daya (Watt) : ")
 	fmt.Scanln(&dayaBaru)
 

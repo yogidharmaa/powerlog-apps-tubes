@@ -26,18 +26,19 @@
 ## 🛠️ Cara Menjalankan
 
 1. **Pastikan Go sudah terinstall** di komputer kamu. Cek dengan perintah:
-   ```bash
+```bash
    go version
-
 2. Clone/Download repository ini ke komputer kamu.
 3. Buka Terminal atau Command Prompt, lalu masuk ke direktori proyek:
+```bash
    cd tubes_powerlog
 4. Jalankan aplikasi:
+```bash
    go run powerlog.go
 
 📂 Struktur Data
 Aplikasi ini dibangun menggunakan struct untuk menjaga keteraturan data:
-
+```bash
 type Perangkat struct {
 	namaPerangkat string
 	ruangan       string

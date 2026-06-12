@@ -28,6 +28,7 @@
 1. **Pastikan Go sudah terinstall** di komputer kamu. Cek dengan perintah:
 ```bash
    go version
+```
 2. Clone/Download repository ini ke komputer kamu.
 3. Buka Terminal atau Command Prompt, lalu masuk ke direktori proyek:
 ```bash

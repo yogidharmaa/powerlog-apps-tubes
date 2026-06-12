@@ -20,11 +20,12 @@ var dataPerangkat []Perangkat
 
 // FUNCTION HELPER (UNTUK EFISIENSI LOGIC PROGRAM)
 
+// Validasi sebagai konfirmasi apakah user ingin lanjut untuk execute program atau tidak
 func validasi() bool { 
 	var confirm string
 
 	for {
-		fmt.Print("Apakah anda yakin? [Y/N]: ")
+		fmt.Print("Apakah anda yakin? [Y/y or N/n]: ")
 		fmt.Scanln(&confirm)
 		if confirm == "Y" || confirm == "y" {
 			return true
@@ -50,7 +51,9 @@ func hitungKonsumsi(perangkat Perangkat) float64 {
 	return (perangkat.dayaW * perangkat.waktu) / 1000
 }
 
+// Untuk nampilin data dari slice[] Perangkat
 func tampilkanPerangkat() {
+	// Melakukan cek apabila isi slice = 0
 	if cekAdaPerangkat() {
 		return
 	}
@@ -68,6 +71,7 @@ func tampilkanPerangkat() {
 	}
 }
 
+// Untuk membersihkan terminal agar output lebih bersih
 func clearScreen() {
 	var cmd *exec.Cmd
 
@@ -77,15 +81,18 @@ func clearScreen() {
 		cmd = exec.Command("clear")
 	}
 
+	// execute command
 	cmd.Stdout = os.Stdout
 	cmd.Run()
 }
 
+// Function penahan agar tidak execute return otomatis
 func pause() {
 	fmt.Print("\nTekan Enter untuk lanjut...")
 	fmt.Scanln()
 }
 
+// Untuk cek jika slice data kosong maka program tidak bisa dijalankan
 func cekAdaPerangkat() bool {
 	if len(dataPerangkat) == 0 {
 		fmt.Print("Belum ada data perangkat\n")
@@ -307,6 +314,8 @@ func totalKonsumsiHarian() {
 		banyakPerangkat++
 	}
 
+	tampilkanPerangkat()
+
 	fmt.Println("Total Perangkat:", banyakPerangkat, "Perangkat")
 	fmt.Println("Total Konsumsi Harian:", total, "kWh")
 
@@ -339,13 +348,7 @@ func daftarKonsumsiTertinggi() {
 	sortKonsumsiTertinggi()
 
 	fmt.Println("===== DAFTAR PERANGKAT KONSUMSI TERTINGGI =====")
-
-	for i := 0; i < len(dataPerangkat); i++ {
-
-		fmt.Println("------------------------------------")
-		fmt.Println("Nama Perangkat :", dataPerangkat[i].namaPerangkat)
-		fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[i]), "kWh")
-	}
+	tampilkanPerangkat()
 
 	pause()
 }
@@ -367,6 +370,7 @@ func perangkatPalingBoros() {
 
 	fmt.Println("Nama Perangkat :", dataPerangkat[maxIdx].namaPerangkat)
 	fmt.Println("Ruangan        :", dataPerangkat[maxIdx].ruangan)
+	fmt.Println("Durasi (Jam)   :", dataPerangkat[maxIdx].waktu)
 	fmt.Println("Konsumsi       :", hitungKonsumsi(dataPerangkat[maxIdx]), "kWh")
 
 	pause()

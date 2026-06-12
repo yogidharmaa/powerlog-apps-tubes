@@ -33,9 +33,11 @@
 3. Buka Terminal atau Command Prompt, lalu masuk ke direktori proyek:
 ```bash
    cd tubes_powerlog
+```
 4. Jalankan aplikasi:
 ```bash
    go run powerlog.go
+```
 
 📂 Struktur Data
 Aplikasi ini dibangun menggunakan struct untuk menjaga keteraturan data:
@@ -46,6 +48,7 @@ type Perangkat struct {
 	dayaW         float64
 	waktu         float64
 }
+```
 
 ⚙️ Kompatibilitas
 Program ini mendukung fitur clear screen otomatis yang bisa berjalan di:

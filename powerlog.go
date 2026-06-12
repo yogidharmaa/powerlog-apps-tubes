@@ -36,6 +36,15 @@ func validasi() bool {
 	}
 }
 
+// Mastiin input string engga kosong ("")
+func cekInputKosong(input string) bool {
+	if input == "" {
+		return false
+	} else {
+		return true
+	}
+}
+
 // Konversi Watt -> kWh
 func hitungKonsumsi(perangkat Perangkat) float64 {
 	return (perangkat.dayaW * perangkat.waktu) / 1000
@@ -188,6 +197,12 @@ func cariNamaPerangkat() {
 
 	fmt.Print("Masukkan nama perangkat yang dicari : ")
 	fmt.Scanln(&cariberdnama)
+	
+	if !cekInputKosong(cariberdnama) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
 
 	fmt.Println("\n===== HASIL PENCARIAN =====")
 
@@ -224,6 +239,12 @@ func cariRuangan() {
 	fmt.Print("Masukkan nama ruangan yang dicari : ")
 	fmt.Scanln(&cariberdruangan)
 
+	if !cekInputKosong(cariberdruangan) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
+	
 	sortRuangan()
 
 	// Start batas kiri sama batas kanan 
@@ -580,9 +601,22 @@ func tambahPerangkat() {
 	fmt.Print("===== TAMBAH PERANGKAT =====\n")
 
 	fmt.Print("Masukkan Nama Perangkat:")
-	fmt.Scanln(&tambah.namaPerangkat) 
+	fmt.Scanln(&tambah.namaPerangkat)
+	
+	if !cekInputKosong(tambah.namaPerangkat) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
+
 	fmt.Print("Masukkan Nama Ruangan: ")
 	fmt.Scanln(&tambah.ruangan) 
+
+	if !cekInputKosong(tambah.ruangan) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
 
 	// Validasi duplikat perangkat
 	for i := 0; i < len(dataPerangkat); i++ {
@@ -673,8 +707,20 @@ func ubahPerangkat() {
 	fmt.Print("Nama Perangkat : ")
 	fmt.Scanln(&namaBaru)
 
+	if !cekInputKosong(namaBaru) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
+
 	fmt.Print("Ruangan : ")
 	fmt.Scanln(&ruanganBaru)
+
+	if !cekInputKosong(ruanganBaru) {
+		fmt.Print("Input tidak boleh kosong!")
+		pause()
+		return
+	}
 
 	fmt.Print("Daya (Watt) : ")
 	fmt.Scanln(&dayaBaru)

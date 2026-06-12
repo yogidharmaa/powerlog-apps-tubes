@@ -53,7 +53,7 @@ type Perangkat struct {
 ⚙️ Kompatibilitas
 Program ini mendukung fitur clear screen otomatis yang bisa berjalan di:
 
-✅ Windows (cls)
-✅ Linux/macOS (clear)
+- ✅ Windows (cls)
+- ✅ Linux/macOS (clear)
 
 Dibuat untuk memenuhi tugas mata kuliah Algoritma & Pemrograman 2.

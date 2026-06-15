@@ -19,7 +19,7 @@
 - [x] **Analisis Statistik**: Menghitung total konsumsi (kWh) dan mengidentifikasi perangkat dengan daya tertinggi.
 - [x] **Algoritma Sorting**: 
     - *Selection Sort* untuk mengurutkan daya perangkat dari yang terbesar.
-    - *Insertion Sort* untuk mengurutkan nama perangkat secara alfabetis.
+    - *Insertion Sort* untuk mengurutkan nama perangkat sesuai abjad perangkat (A - Z).
 - [x] **Pencarian Cepat**: Implementasi *Binary Search* untuk mencari data berdasarkan nama ruangan.
 - [x] **Validasi Input**: Memastikan data yang dimasukkan valid (tidak kosong & angka positif).
 

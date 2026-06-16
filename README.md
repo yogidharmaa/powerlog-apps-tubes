@@ -1,7 +1,7 @@
 <h1 align="center">⚡ PowerLog Apps</h1>
 
 <p align="center">
-  Aplikasi CLI berbasis Go untuk manajemen dan analisis konsumsi energi listrik perangkat elektronik.
+  CLI Apps berbasis Go untuk manajemen dan analisis konsumsi energi listrik perangkat elektronik.
 </p>
 
 <p align="center">
@@ -25,22 +25,22 @@
 
 ## 🛠️ Cara Menjalankan
 
-1. **Pastikan Go sudah terinstall** di komputer kamu. Cek dengan perintah:
+1. **Pastikan Go sudah terinstall** di device kalian. Run:
 ```bash
    go version
 ```
-2. Clone/Download repository ini ke komputer kamu.
-3. Buka Terminal atau Command Prompt, lalu masuk ke direktori proyek:
+2. Download repository ini ke device kalian.
+3. Buka Terminal, lalu masuk ke directory project:
 ```bash
    cd tubes_powerlog
 ```
-4. Jalankan aplikasi:
+4. Jalankan apps:
 ```bash
    go run powerlog.go
 ```
 
 📂 Struktur Data
-Aplikasi ini dibangun menggunakan struct untuk menjaga keteraturan data:
+Aplikasi ini dikembangkan dengan struct/slice:
 ```bash
 type Perangkat struct {
 	namaPerangkat string

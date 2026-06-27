@@ -6,7 +6,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Language-Go-00ADD8?style=for-the-badge&logo=go" alt="Go">
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
 </p>
 
 ---
@@ -49,11 +48,4 @@ type Perangkat struct {
 	waktu         float64
 }
 ```
-
-⚙️ Kompatibilitas
-Program ini mendukung fitur clear screen otomatis yang bisa berjalan di:
-
-- ✅ Windows (cls)
-- ✅ Linux/macOS (clear)
-
 Dibuat untuk memenuhi tugas mata kuliah Algoritma & Pemrograman 2.
